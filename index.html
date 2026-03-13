@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crypto Pulse Board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Live Market Tracker</p>
+          <h1>Bitcoin, Ethereum, and Solana momentum in one board.</h1>
+          <p class="hero-text">
+            Track price direction, estimate bullish vs bearish probability, and
+            compare dominance by combined market cap share.
+          </p>
+        </div>
+
+        <div class="hero-panel">
+          <div class="hero-stat">
+            <span>Market Side</span>
+            <strong id="marketSide">Loading...</strong>
+          </div>
+          <div class="hero-stat">
+            <span>Dominance Leader</span>
+            <strong id="dominanceLeader">Loading...</strong>
+          </div>
+          <button id="refreshButton" class="refresh-button" type="button">
+            Refresh Data
+          </button>
+          <p id="lastUpdated" class="last-updated">Waiting for first update...</p>
+        </div>
+      </header>
+
+      <main class="dashboard">
+        <section class="panel">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Tracked Assets</p>
+              <h2>Direction and probability</h2>
+            </div>
+            <p class="section-note">
+              Probability uses a heuristic from 24h change, 7d trend, price
+              position, and liquidity.
+            </p>
+          </div>
+          <div id="coinGrid" class="coin-grid" aria-live="polite"></div>
+        </section>
+
+        <section class="panel split-panel">
+          <div>
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Dominance</p>
+                <h2>Share of tracked market cap</h2>
+              </div>
+            </div>
+            <div id="dominanceBars" class="dominance-bars"></div>
+          </div>
+
+          <div class="summary-card">
+            <p class="eyebrow">Board Summary</p>
+            <div class="summary-metric">
+              <span>Total tracked market cap</span>
+              <strong id="totalMarketCap">$0</strong>
+            </div>
+            <div class="summary-metric">
+              <span>Average bullish probability</span>
+              <strong id="averageProbability">0%</strong>
+            </div>
+            <div class="summary-metric">
+              <span>Strongest momentum</span>
+              <strong id="strongestAsset">Loading...</strong>
+            </div>
+            <div class="summary-metric">
+              <span>Weakest momentum</span>
+              <strong id="weakestAsset">Loading...</strong>
+            </div>
+          </div>
+        </section>
+
+        <section id="statusBanner" class="status-banner" hidden></section>
+      </main>
+    </div>
+
+    <template id="coinCardTemplate">
+      <article class="coin-card">
+        <div class="coin-card-header">
+          <div>
+            <p class="coin-name"></p>
+            <span class="coin-symbol"></span>
+          </div>
+          <span class="direction-badge"></span>
+        </div>
+
+        <div class="price-row">
+          <strong class="coin-price"></strong>
+          <span class="coin-change"></span>
+        </div>
+
+        <div class="probability-block">
+          <div class="probability-header">
+            <span>Bullish Probability</span>
+            <strong class="bullish-probability"></strong>
+          </div>
+          <div class="probability-track">
+            <div class="probability-fill"></div>
+          </div>
+          <div class="probability-footer">
+            <span class="bias-label"></span>
+            <span class="bearish-probability"></span>
+          </div>
+        </div>
+
+        <dl class="coin-metrics">
+          <div>
+            <dt>7d Change</dt>
+            <dd class="weekly-change"></dd>
+          </div>
+          <div>
+            <dt>Volume</dt>
+            <dd class="coin-volume"></dd>
+          </div>
+          <div>
+            <dt>Market Cap</dt>
+            <dd class="coin-market-cap"></dd>
+          </div>
+          <div>
+            <dt>Dominance</dt>
+            <dd class="coin-dominance"></dd>
+          </div>
+        </dl>
+      </article>
+    </template>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
