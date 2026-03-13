@@ -1,2 +1,2 @@
-# indtrackpoly.xyz
+# findtrackpoly.xyz
 Portfolio bot tracker
